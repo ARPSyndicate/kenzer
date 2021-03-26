@@ -1,0 +1,6 @@
+*.sqlite3
+*.pickle
+__pycache__
+kenzer.log
+resources
+kenzerdb

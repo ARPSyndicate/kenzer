@@ -1,0 +1,9 @@
+numpy
+spacy==1.9.0
+setuptools
+zulip
+chatterbot
+chatterbot-corpus
+mmh3
+tldextract
+validators
