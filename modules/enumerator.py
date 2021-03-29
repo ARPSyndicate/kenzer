@@ -77,6 +77,29 @@ class Enumerator:
             line = 0
         return line
     
+    #enumerates social media accounts
+    def socenum(self):
+        domain = self.domain
+        path = self.path
+        subs = path+"/webenum.kenz"
+        if(os.path.exists(subs) == False):
+            return("!webenum")
+        output = path+"/EmailHarvester.log"
+        os.system("EmailHarvester -d {0} -s {1}".format(domain, output))
+        os.system("sed -i -e 's/^/[email] [{0}] /' {1}".format(domain, output))
+        output = path+"/rescro.log"
+        os.system("rescro -l {0} -s {1} -T 100 -o {2}".format(subs, self.templates+"rescro.yaml", output))
+        out = path+"/socenum.kenz"
+        if(os.path.exists(out)):
+            os.system("mv {0} {0}.old".format(out))
+        os.system("cat {0}/EmailHarvester.log {0}/rescro.log | sort -u  > {1}".format(path, out))
+        if(os.path.exists(out)):
+            with open(out, encoding="ISO-8859-1") as f:
+                line = len(f.readlines())
+        else:
+            line=0
+        return line
+    
     #enumerates additional information for urls
     def urlheadenum(self):
         domain = self.domain
@@ -320,4 +343,5 @@ class Enumerator:
     #removes log files & empty files
     def remlog(self):
         os.system("rm {0}/*.log*".format(self.path))
+        os.system("rm -r {0}/nuclei {0}/jaeles".format(self.path))
         os.system("find {0} -type f -empty -delete".format(self.path))

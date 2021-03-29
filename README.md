@@ -32,15 +32,14 @@
 >* `dnsenum` - enumerates dns records
 >* `conenum` - enumerates hidden files & directories
 >* `urlenum` - enumerates urls
+>* `socenum` - enumerates social media accounts
 >* `subscan` - hunts for subdomain takeovers
->* `socscan` - scans search engines & webpages for social media accounts
 >* `cscan` - scan with customized templates
 >* `cvescan` - hunts for CVEs
 >* `vulnscan` - hunts for other common vulnerabilites
 >* `urlcvescan` - hunts for CVEs in URLs
 >* `urlvulnscan` - hunts for other common vulnerabilites in URLs
 >* `portscan` - scans open ports
->* `urlscan` - hunts for vulnerablities in urls
 >* `endscan` - hunts for vulnerablities in custom endpoints
 >* `buckscan` - hunts for unreferenced aws s3 buckets
 >* `favscan` - fingerprints webservers using favicon

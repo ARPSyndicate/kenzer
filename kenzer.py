@@ -49,7 +49,7 @@ class Kenzer(object):
     
     #initializations
     def __init__(self):
-        print(BLUE+"KENZER[3.09] by ARPSyndicate"+CLEAR)
+        print(BLUE+"KENZER[3.10] by ARPSyndicate"+CLEAR)
         print(YELLOW+"automated web assets enumeration & scanning"+CLEAR)
         self.client = zulip.Client(email=_BotMail, site=_Site, api_key=_APIKey)
         self.upload=False
@@ -65,7 +65,7 @@ class Kenzer(object):
         time.sleep(3)
         self.trainer.train("chatterbot.corpus.english")
         time.sleep(3)
-        self.modules=["monitor", "subenum", "webenum", "servenum", "urlheadenum", "headenum", "socscan", "conenum", "dnsenum", "portenum", "asnenum", "urlenum", "favscan", "cscan", "idscan", "subscan", "cvescan", "vulnscan", "portscan", "urlcvescan", "urlvulnscan", "endscan", "buckscan", "vizscan", "enum", "scan", "recon", "hunt", "remlog", "sync"]
+        self.modules=["monitor", "subenum", "webenum", "servenum", "urlheadenum", "headenum", "socenum", "conenum", "dnsenum", "portenum", "asnenum", "urlenum", "favscan", "cscan", "idscan", "subscan", "cvescan", "vulnscan", "portscan", "urlcvescan", "urlvulnscan", "endscan", "buckscan", "vizscan", "enum", "scan", "recon", "hunt", "remlog", "sync"]
         print(YELLOW+"[*] KENZER is online"+CLEAR)
         print(YELLOW+"[*] {0} modules up & running".format(len(self.modules))+CLEAR)
 
@@ -81,7 +81,7 @@ class Kenzer(object):
 
     #manual
     def man(self):
-        message = "**KENZER[3.09]**\n"
+        message = "**KENZER[3.10]**\n"
         message +="**KENZER modules**\n"
         message +="  `subenum` - enumerates subdomains\n"
         message +="  `portenum` - enumerates open ports\n"
@@ -94,7 +94,7 @@ class Kenzer(object):
         message +="  `asnenum` - enumerates asn\n"
         message +="  `urlenum` - enumerates urls\n"
         message +="  `subscan` - hunts for subdomain takeovers\n"
-        message +="  `socscan` - scans search engines & webpages for social media accounts\n"
+        message +="  `socenum` - enumerates social media accounts\n"
         message +="  `cscan` - scan with customized templates\n"
         message +="  `cvescan` - hunts for CVEs\n"
         message +="  `vulnscan` - hunts for other common vulnerabilites\n"
@@ -350,18 +350,18 @@ class Kenzer(object):
 
         return
     
-    #scans search engines & webpages for social media accounts 
-    def socscan(self):
+    #enumerates social media accounts 
+    def socenum(self):
         for i in range(2,len(self.content)):
             if(validators.domain(self.content[i].lower())!= True and self.content[i].lower() != "monitor"):
                 self.sendMessage("[invalid] {0}".format(self.content[i].lower()))
                 continue
-            self.sendMessage("[socscan - #({0}/{1})] {2}".format(i-1, len(self.content)-2, self.content[i].lower()))
+            self.sendMessage("[socenum - #({0}/{1})] {2}".format(i-1, len(self.content)-2, self.content[i].lower()))
             self.scan = scanner.Scanner(self.content[i].lower(), _kenzerdb, _kenzer)
-            message = self.scan.socscan()
-            self.sendMessage("[socscan - #({0}/{1}) - {2}] {3}".format(i-1, len(self.content)-2, message, self.content[i].lower()))
+            message = self.scan.socenum()
+            self.sendMessage("[socenum - #({0}/{1}) - {2}] {3}".format(i-1, len(self.content)-2, message, self.content[i].lower()))
             if self.upload:
-                file = "socscan.kenz"
+                file = "socenum.kenz"
                 self.uploader(self.content[i], file)
 
         return
@@ -563,6 +563,7 @@ class Kenzer(object):
         self.webenum()
         self.headenum()
         self.dnsenum()
+        self.socenum()
         self.conenum()
         self.asnenum()
         #experimental ones
@@ -573,7 +574,6 @@ class Kenzer(object):
     #runs all scanning modules
     def scan(self):
         self.favscan()
-        self.socscan()
         self.idscan()
         self.subscan()
         self.portscan()
@@ -596,7 +596,7 @@ class Kenzer(object):
         self.headenum()
         self.dnsenum()
         self.conenum()
-        self.socscan()
+        self.socenum()
         self.subscan()
         self.idscan()
         self.favscan()
@@ -673,8 +673,8 @@ class Kenzer(object):
                     self.webenum()
                 elif content[1].lower() == "servenum":
                     self.servenum()
-                elif content[1].lower() == "socscan":
-                    self.socscan()
+                elif content[1].lower() == "socenum":
+                    self.socenum()
                 elif content[1].lower() == "headenum":
                     self.headenum()
                 elif content[1].lower() == "urlheadenum":
