@@ -15,7 +15,5 @@ pip3 install -U -r requirements.txt
 sudo python3 -m spacy download en
 mkdir ~/.config
 mkdir ~/.config/subfinder
-mkdir ~/.gf
 cp configs/subfinder.yaml ~/.config/subfinder/config.yaml
-cp resources/kenzer-templates/gf/* ~/.gf/
 ./run.sh

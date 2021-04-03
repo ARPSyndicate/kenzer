@@ -49,7 +49,7 @@ class Kenzer(object):
     
     #initializations
     def __init__(self):
-        print(BLUE+"KENZER[3.10] by ARPSyndicate"+CLEAR)
+        print(BLUE+"KENZER[3.11] by ARPSyndicate"+CLEAR)
         print(YELLOW+"automated web assets enumeration & scanning"+CLEAR)
         self.client = zulip.Client(email=_BotMail, site=_Site, api_key=_APIKey)
         self.upload=False
@@ -81,7 +81,7 @@ class Kenzer(object):
 
     #manual
     def man(self):
-        message = "**KENZER[3.10]**\n"
+        message = "**KENZER[3.11]**\n"
         message +="**KENZER modules**\n"
         message +="  `subenum` - enumerates subdomains\n"
         message +="  `portenum` - enumerates open ports\n"
@@ -148,7 +148,6 @@ class Kenzer(object):
         global _Site
         org=domain
         data = _kenzerdb+org+"/"+raw
-        print(data)
         if(os.path.exists(data) == False):
             return
         with open(data, 'rb') as fp:
@@ -158,7 +157,7 @@ class Kenzer(object):
             files=[fp],
         )
         self.sendMessage("{0}/{1} : {3}{2}".format(org, raw, uploaded['uri'], _Site))
-        print(uploaded)
+        return
 
     #monitors ct logs
     def monitor(self):
