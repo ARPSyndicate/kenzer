@@ -129,7 +129,7 @@ class Enumerator:
         output = path+"/urlenum.kenz"
         if(os.path.exists(output)):
             os.system("mv {0} {0}.old".format(output))
-        os.system("cat {0}/urlenum.kenz* {0}/gau.log {0}/giturl.log {0}/gospider.log | sort -u> {1}".format(path, output))
+        os.system("cat {0}/urlenum.kenz* {0}/gau.log {0}/giturl.log {0}/gospider.log | grep \"{2}\" | sort -u> {1}".format(path, output, domain))
         if(os.path.exists(output)):
             with open(output, encoding="ISO-8859-1") as f:
                 line = len(f.readlines())
@@ -343,5 +343,5 @@ class Enumerator:
     #removes log files & empty files
     def remlog(self):
         os.system("rm {0}/*.log*".format(self.path))
-        os.system("rm -r {0}/nuclei {0}/jaeles {0}/nxscan".format(self.path))
+        os.system("rm -r {0}/nuclei {0}/jaeles {0}/nxscan {0}/gocrawler".format(self.path))
         os.system("find {0} -type f -empty -delete".format(self.path))

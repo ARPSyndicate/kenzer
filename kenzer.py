@@ -49,7 +49,7 @@ class Kenzer(object):
     
     #initializations
     def __init__(self):
-        print(BLUE+"KENZER[3.11] by ARPSyndicate"+CLEAR)
+        print(BLUE+"KENZER[3.12] by ARPSyndicate"+CLEAR)
         print(YELLOW+"automated web assets enumeration & scanning"+CLEAR)
         self.client = zulip.Client(email=_BotMail, site=_Site, api_key=_APIKey)
         self.upload=False
@@ -81,7 +81,7 @@ class Kenzer(object):
 
     #manual
     def man(self):
-        message = "**KENZER[3.11]**\n"
+        message = "**KENZER[3.12]**\n"
         message +="**KENZER modules**\n"
         message +="  `subenum` - enumerates subdomains\n"
         message +="  `portenum` - enumerates open ports\n"
@@ -346,7 +346,6 @@ class Kenzer(object):
             if self.upload:
                 file = "subscan.kenz"
                 self.uploader(self.content[i], file)
-
         return
     
     #enumerates social media accounts 
@@ -356,13 +355,12 @@ class Kenzer(object):
                 self.sendMessage("[invalid] {0}".format(self.content[i].lower()))
                 continue
             self.sendMessage("[socenum - #({0}/{1})] {2}".format(i-1, len(self.content)-2, self.content[i].lower()))
-            self.scan = scanner.Scanner(self.content[i].lower(), _kenzerdb, _kenzer)
-            message = self.scan.socenum()
+            self.enum = enumerator.Enumerator(self.content[i].lower(), _kenzerdb, _kenzer)
+            message = self.enum.socenum()
             self.sendMessage("[socenum - #({0}/{1}) - {2}] {3}".format(i-1, len(self.content)-2, message, self.content[i].lower()))
             if self.upload:
                 file = "socenum.kenz"
                 self.uploader(self.content[i], file)
-
         return
 
     #scans with customized templates
@@ -378,7 +376,6 @@ class Kenzer(object):
             if self.upload:
                 file = "cscan.kenz"
                 self.uploader(self.content[i], file)
-
         return
         
     #hunts for CVEs
@@ -394,7 +391,6 @@ class Kenzer(object):
             if self.upload:
                 file = "cvescan.kenz"
                 self.uploader(self.content[i], file)
-
         return
     
     #hunts for other common vulnerabilities
@@ -410,7 +406,6 @@ class Kenzer(object):
             if self.upload:
                 file = "vulnscan.kenz"
                 self.uploader(self.content[i], file)
-
         return
 
     #hunts for CVEs in URLs
@@ -426,7 +421,6 @@ class Kenzer(object):
             if self.upload:
                 file = "urlcvescan.kenz"
                 self.uploader(self.content[i], file)
-
         return
     
     #hunts for other common vulnerabilities in URLs
@@ -442,7 +436,6 @@ class Kenzer(object):
             if self.upload:
                 file = "urlvulnscan.kenz"
                 self.uploader(self.content[i], file)
-
         return
 
     #scans open ports
@@ -473,7 +466,6 @@ class Kenzer(object):
             if self.upload:
                 file = "urlscan.kenz"
                 self.uploader(self.content[i], file)
-
         return
     
     #hunts for vulnerablities in custom endpoints
@@ -489,7 +481,6 @@ class Kenzer(object):
             if self.upload:
                 file = "endscan.kenz"
                 self.uploader(self.content[i], file)
-
         return
     
     #hunts for subdomain takeovers
@@ -505,7 +496,6 @@ class Kenzer(object):
             if self.upload:
                 file = "buckscan.kenz"
                 self.uploader(self.content[i], file)
-
         return
 
     #fingerprints servers using favicons
@@ -550,7 +540,6 @@ class Kenzer(object):
             self.sendMessage("[vizscan - #({0}/{1}) ~] {2}".format(i-1, len(self.content)-2, self.content[i].lower()))
             if self.upload:
                 for file in os.listdir(_kenzerdb+self.content[i].lower()+"/aquatone/screenshots/"):
-
                     self.uploader(self.content[i], "aquatone/screenshots/"+file)
         return
 
