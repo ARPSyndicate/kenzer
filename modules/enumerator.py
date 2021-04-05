@@ -11,6 +11,7 @@ class Enumerator:
         self.path = db+self.organization
         self.resources = kenzer+"resources"
         self.githubapi=github
+        self.templates = self.resources+"/kenzer-templates/"
         if(os.path.exists(self.path) == False):
             os.system("mkdir "+self.path)
 
