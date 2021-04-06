@@ -288,7 +288,7 @@ class Scanner:
             return("!webenum")
         if(os.path.exists(out)):
             os.system("mv {0} {0}.old".format(out))
-        os.system("cat {0} | aquatone -threads=10 -http-timeout=15000 -resolution=\"720,480\" -save-body=false -out={1} -screenshot-timeout=200000".format(subs,path+"/aquatone"))
+        os.system("cat {0} | aquatone -threads=10 -http-timeout=15000 -resolution=\"720,480\" -save-body=false -out={1} -screenshot-timeout=200000 -chrome-path /usr/share/chrome-linux/chrome".format(subs,path+"/aquatone"))
         os.system("cp {0}/aquatone_report.html {1}".format(path+"/aquatone",out))
         os.system("sed -i 's+screenshots/+aquatone/screenshots/+g' {0}".format(out))
         os.system("sed -i 's+headers/+aquatone/headers/+g' {0}".format(out))
