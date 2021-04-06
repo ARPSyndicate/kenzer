@@ -1,9 +1,8 @@
 numpy
-spacy==1.9.0
 setuptools
 zulip
+chatterbot_corpus==1.2.0
 chatterbot
-chatterbot-corpus
 mmh3
 tldextract
 validators
