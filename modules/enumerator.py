@@ -17,6 +17,28 @@ class Enumerator:
 
     #core enumerator modules
 
+    #initializes & removes out of scope targets
+    def ignorenum(self, ignore=""):
+        domain = self.domain
+        path = self.path
+        output =path+"/ignorenum.kenz"
+        files = ["/subenum.kenz", "/webenum.kenz", "/portenum.kenz", "/urlenum.kenz", "/servenum.kenz"]
+        if(len(ignore)>0):
+            with open(output, "w") as f:
+                f.writelines(ignore)
+        if(os.path.exists(output)):
+            with open(output, "r") as f:
+                ignore = f.read().split("/n")
+            for key in ignore:
+                for file in files:
+                    if(os.path.exists(path+file)):
+                        os.system("ex +g/{0}/d -cwq {1}".format(key, path+file))
+                with open(output, encoding="ISO-8859-1") as f:
+                    line = len(f.readlines())
+        else:
+            line = 0
+        return line
+
     #enumerates subdomains
     def subenum(self):
         self.gitdomain()
@@ -30,6 +52,7 @@ class Enumerator:
             self.shuffsolv(output, domain)
             os.system("rm {0}".format(output))
         os.system("cat {0}/amass.log {0}/subfinder.log {0}/subenum.kenz* {0}/shuffledns.log {0}/shuffsolv.log {0}/gitdomain.log | sort -u > {1}".format(path, output))
+        self.ignorenum()
         if(os.path.exists(output)):
             with open(output, encoding="ISO-8859-1") as f:
                 line = len(f.readlines())
@@ -52,6 +75,7 @@ class Enumerator:
         if(os.path.exists(output)):
             os.system("mv {0} {0}.old".format(output))
         os.system("cat {0}/httpx.log {0}/webenum.kenz* | cut -d' ' -f 1 | sort -u > {1}".format(path, output))
+        self.ignorenum()
         if(os.path.exists(output)):
             with open(output, encoding="ISO-8859-1") as f:
                 line = len(f.readlines())
@@ -131,6 +155,7 @@ class Enumerator:
         if(os.path.exists(output)):
             os.system("mv {0} {0}.old".format(output))
         os.system("cat {0}/urlenum.kenz* {0}/gau.log {0}/giturl.log {0}/gospider.log | grep \"{2}\" | sort -u> {1}".format(path, output, domain))
+        self.ignorenum()
         if(os.path.exists(output)):
             with open(output, encoding="ISO-8859-1") as f:
                 line = len(f.readlines())
@@ -152,6 +177,7 @@ class Enumerator:
             os.system("mv {0} {0}.old".format(output))
         os.system("sudo NXScan --only-enumerate -l {0} -o {1}".format(subs,path+"/nxscan"))
         os.system("cat {0}/nxscan/enum.txt {0}/portenum.kenz* | sort -u > {1}".format(path, output))
+        self.ignorenum()
         if(os.path.exists(output)):
             with open(output, encoding="ISO-8859-1") as f:
                 line = len(f.readlines())
@@ -169,6 +195,7 @@ class Enumerator:
         output = path+"/servenum.kenz"
         os.system("sudo NXScan --only-finger -l {0} -o {1}".format(subs,path+"/nxscan"))
         os.system("cat {0}/nxscan/finger.txt {0}/servenum.kenz* | sort -u > {1}".format(path, output))
+        self.ignorenum()
         if(os.path.exists(output)):
             with open(output, encoding="ISO-8859-1") as f:
                 line = len(f.readlines())

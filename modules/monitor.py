@@ -63,6 +63,11 @@ class Monitor:
                         f.write(subdomain)
                 os.system("mv {0} {0}.old && sort -u {0}.old > {0}".format(destination+"/subenum.kenz"))
                 os.system("rm {0}.old".format(destination+"/subenum.kenz"))
+                if(os.path.exists(destination+"/ignorenum.kenz")):
+                    with open(destination+"/ignorenum.kenz", "r") as f:
+                        ignore = f.read().split("/n")
+                    for key in ignore:
+                        os.system("ex +g/{0}/d -cwq {1}".format(key, destination+"/subenum.kenz"))
             except:
                 continue
         return

@@ -22,6 +22,7 @@
 8. All the commands can be used by mentioning the chatbot using the prefix `@**kenzer**`.<br>
 
 ## Built-in Modules
+>* `ignorenum` - initializes & removes out of scope targets
 >* `subenum` - enumerates subdomains
 >* `portenum` - enumerates open ports
 >* `servenum` - enumerates services

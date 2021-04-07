@@ -7,6 +7,7 @@ from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
 from configparser import ConfigParser
 import validators
+import tldextract
 
 #core modules
 from modules import enumerator
@@ -49,7 +50,7 @@ class Kenzer(object):
     
     #initializations
     def __init__(self):
-        print(BLUE+"KENZER[3.13] by ARPSyndicate"+CLEAR)
+        print(BLUE+"KENZER[3.14] by ARPSyndicate"+CLEAR)
         print(YELLOW+"automated web assets enumeration & scanning"+CLEAR)
         self.client = zulip.Client(email=_BotMail, site=_Site, api_key=_APIKey)
         self.upload=False
@@ -65,7 +66,7 @@ class Kenzer(object):
         time.sleep(3)
         self.trainer.train("chatterbot.corpus.english")
         time.sleep(3)
-        self.modules=["monitor", "subenum", "webenum", "servenum", "urlheadenum", "headenum", "socenum", "conenum", "dnsenum", "portenum", "asnenum", "urlenum", "favscan", "cscan", "idscan", "subscan", "cvescan", "vulnscan", "portscan", "urlcvescan", "urlvulnscan", "endscan", "buckscan", "vizscan", "enum", "scan", "recon", "hunt", "remlog", "sync"]
+        self.modules=["monitor", "ignorenum", "subenum", "webenum", "servenum", "urlheadenum", "headenum", "socenum", "conenum", "dnsenum", "portenum", "asnenum", "urlenum", "favscan", "cscan", "idscan", "subscan", "cvescan", "vulnscan", "portscan", "urlcvescan", "urlvulnscan", "endscan", "buckscan", "vizscan", "enum", "scan", "recon", "hunt", "remlog", "sync"]
         print(YELLOW+"[*] KENZER is online"+CLEAR)
         print(YELLOW+"[*] {0} modules up & running".format(len(self.modules))+CLEAR)
 
@@ -81,8 +82,9 @@ class Kenzer(object):
 
     #manual
     def man(self):
-        message = "**KENZER[3.13]**\n"
+        message = "**KENZER[3.14]**\n"
         message +="**KENZER modules**\n"
+        message +="  `ignorenum` - initializes & removes out of scope targets\n"
         message +="  `subenum` - enumerates subdomains\n"
         message +="  `portenum` - enumerates open ports\n"
         message +="  `servenum` - enumerates services\n"
@@ -181,6 +183,23 @@ class Kenzer(object):
         self.monitor = monitor.Monitor(_kenzerdb, " ".join(self.content[2:]))
         self.monitor.normalize()
         self.sendMessage("[normalized - #({0})]".format(len(self.content)-2))
+        return
+
+    #initializes & removes out of scope targets
+    def ignorenum(self):
+        for i in range(2,len(self.content)):
+            if(validators.domain(self.content[i].lower())!= True and self.content[i].lower() != "monitor"):
+                self.sendMessage("[invalid] {0}".format(self.content[i].lower()))
+                continue
+            extracted = tldextract.extract(self.content[i].lower())
+            domain = "{}.{}".format(extracted.domain, extracted.suffix)
+            self.sendMessage("[ignorenum - #({0}/{1})] {2}".format(i-1, len(self.content)-2, domain))
+            self.enum = enumerator.Enumerator(domain, _kenzerdb, _kenzer, _github)
+            message = self.enum.ignorenum(self.content[i].lower())
+            self.sendMessage("[ignorenum - #({0}/{1}) - {2}] {3}".format(i-1, len(self.content)-2, message, domain))
+            if self.upload:
+                file = "ignorenum.kenz"
+                self.uploader(self.content[i], file)
         return
 
     #enumerates subdomains
@@ -655,6 +674,8 @@ class Kenzer(object):
                         self.monitor_kenzerdb()
                     else:
                         self.monitor()    
+                elif content[1].lower() == "ignorenum":
+                    self.ignorenum()
                 elif content[1].lower() == "subenum":
                     self.subenum()
                 elif content[1].lower() == "webenum":
