@@ -278,11 +278,14 @@ class Enumerator:
     #resolves & removes wildcard subdomains using shuffledns
     def shuffsolv(self, domains, domain):
         self.getresolvers()
-        path=self.path
-        path+="/shuffsolv.log"
+        path=self.path + "/shuffsolv.1.log"
         if(os.path.exists(path)):
             os.system("rm {0}".format(path))
-        os.system("shuffledns -strict-wildcard -retries 6 -wt 25 -r {3}/resolvers.txt -o {0} -v -list {1} -d {2}".format(path, domains, domain,self.resources))
+        oldp = path
+        path = self.path+"/shuffsolv.log"
+        os.system("shuffledns -strict-wildcard -retries 6 -wt 20 -r {3}/resolvers.txt -o {0} -v -list {1} -d {2}".format(path, domains, domain,self.resources))
+        os.system("shuffledns -strict-wildcard -retries 6 -wt 20 -r {3}/resolvers.txt -o {0} -v -list {1} -d {2}".format(path, oldp, domain,self.resources))
+        os.system("rm "+oldp)
         return
 
     #enumerates subdomains using github-subdomains

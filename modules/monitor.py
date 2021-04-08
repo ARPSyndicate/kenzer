@@ -33,6 +33,7 @@ class Monitor:
         self.portenum()
         self.webenum()
         self.dnsenum()
+        self.servenum()
         self.asnenum()
         self.headenum()
         self.favscan()
@@ -93,6 +94,11 @@ class Monitor:
                         f.write(subdomain)
                 os.system("mv {0} {0}.old && sort -u {0}.old > {0}".format(destination+"/portenum.kenz"))
                 os.system("rm {0}.old".format(destination+"/portenum.kenz"))
+                if(os.path.exists(destination+"/ignorenum.kenz")):
+                    with open(destination+"/ignorenum.kenz", "r") as f:
+                        ignore = f.read().split("/n")
+                    for key in ignore:
+                        os.system("ex +g/{0}/d -cwq {1}".format(key, destination+"/portenum.kenz"))
             except:
                 continue
         return
@@ -118,6 +124,11 @@ class Monitor:
                         f.write(subdomain)
                 os.system("mv {0} {0}.old && sort -u {0}.old > {0}".format(destination+"/webenum.kenz"))
                 os.system("rm {0}.old".format(destination+"/webenum.kenz"))
+                if(os.path.exists(destination+"/ignorenum.kenz")):
+                    with open(destination+"/ignorenum.kenz", "r") as f:
+                        ignore = f.read().split("/n")
+                    for key in ignore:
+                        os.system("ex +g/{0}/d -cwq {1}".format(key, destination+"/webenum.kenz"))
             except:
                 continue
         return
@@ -144,6 +155,11 @@ class Monitor:
                         f.write(data)
                 os.system("mv {0} {0}.old && sort -u {0}.old > {0}".format(destination+"/headenum.kenz"))
                 os.system("rm {0}.old".format(destination+"/headenum.kenz"))
+                if(os.path.exists(destination+"/ignorenum.kenz")):
+                    with open(destination+"/ignorenum.kenz", "r") as f:
+                        ignore = f.read().split("/n")
+                    for key in ignore:
+                        os.system("ex +g/{0}/d -cwq {1}".format(key, destination+"/headenum.kenz"))
             except:
                 continue
         return
@@ -170,6 +186,11 @@ class Monitor:
                         f.write(data)
                 os.system("mv {0} {0}.old && sort -u {0}.old > {0}".format(destination+"/asnenum.kenz"))
                 os.system("rm {0}.old".format(destination+"/asnenum.kenz"))
+                if(os.path.exists(destination+"/ignorenum.kenz")):
+                    with open(destination+"/ignorenum.kenz", "r") as f:
+                        ignore = f.read().split("/n")
+                    for key in ignore:
+                        os.system("ex +g/{0}/d -cwq {1}".format(key, destination+"/asnenum.kenz"))
             except:
                 continue
         return
@@ -196,6 +217,11 @@ class Monitor:
                         f.write(data)
                 os.system("mv {0} {0}.old && sort -u {0}.old > {0}".format(destination+"/dnsenum.kenz"))
                 os.system("rm {0}.old".format(destination+"/dnsenum.kenz"))
+                if(os.path.exists(destination+"/ignorenum.kenz")):
+                    with open(destination+"/ignorenum.kenz", "r") as f:
+                        ignore = f.read().split("/n")
+                    for key in ignore:
+                        os.system("ex +g/{0}/d -cwq {1}".format(key, destination+"/dnsenum.kenz"))
             except:
                 continue
         return
@@ -223,6 +249,42 @@ class Monitor:
                         f.write(data)
                 os.system("mv {0} {0}.old && sort -u {0}.old > {0}".format(destination+"/favscan.kenz"))
                 os.system("rm {0}.old".format(destination+"/favscan.kenz"))
+                if(os.path.exists(destination+"/ignorenum.kenz")):
+                    with open(destination+"/ignorenum.kenz", "r") as f:
+                        ignore = f.read().split("/n")
+                    for key in ignore:
+                        os.system("ex +g/{0}/d -cwq {1}".format(key, destination+"/favscan.kenz"))
+            except:
+                continue
+        return
+
+    #normalizes servenum
+    def servenum(self):
+        kenzerdb = self.db
+        servenum = self.path+"/servenum.kenz"
+        if(os.path.exists(servenum) == False):
+            return
+        with open(servenum, 'r', encoding="ISO-8859-1") as f:
+            domains = f.readlines()
+        domains=list(set(domains))
+        domains.sort()
+        for data in domains:
+            try:
+                subdomain = data.split(" ")[1]
+                extracted = tldextract.extract(subdomain)
+                domain = "{}.{}".format(extracted.domain, extracted.suffix)
+                destination = kenzerdb+domain
+                if not os.path.exists(destination):
+                    os.makedirs(destination)
+                with open(destination+"/servenum.kenz", 'a', encoding="ISO-8859-1") as f:
+                        f.write(data)
+                os.system("mv {0} {0}.old && sort -u {0}.old > {0}".format(destination+"/servenum.kenz"))
+                os.system("rm {0}.old".format(destination+"/servenum.kenz"))
+                if(os.path.exists(destination+"/ignorenum.kenz")):
+                    with open(destination+"/ignorenum.kenz", "r") as f:
+                        ignore = f.read().split("/n")
+                    for key in ignore:
+                        os.system("ex +g/{0}/d -cwq {1}".format(key, destination+"/servenum.kenz"))
             except:
                 continue
         return
@@ -249,6 +311,11 @@ class Monitor:
                         f.write(data)
                 os.system("mv {0} {0}.old && sort -u {0}.old > {0}".format(destination+"/idscan.kenz"))
                 os.system("rm {0}.old".format(destination+"/idscan.kenz"))
+                if(os.path.exists(destination+"/ignorenum.kenz")):
+                    with open(destination+"/ignorenum.kenz", "r") as f:
+                        ignore = f.read().split("/n")
+                    for key in ignore:
+                        os.system("ex +g/{0}/d -cwq {1}".format(key, destination+"/idscan.kenz"))
             except:
                 continue
         return
@@ -275,6 +342,11 @@ class Monitor:
                         f.write(data)
                 os.system("mv {0} {0}.old && sort -u {0}.old > {0}".format(destination+"/vulnscan.kenz"))
                 os.system("rm {0}.old".format(destination+"/vulnscan.kenz"))
+                if(os.path.exists(destination+"/ignorenum.kenz")):
+                    with open(destination+"/ignorenum.kenz", "r") as f:
+                        ignore = f.read().split("/n")
+                    for key in ignore:
+                        os.system("ex +g/{0}/d -cwq {1}".format(key, destination+"/vulnscan.kenz"))
             except:
                 continue
         return
@@ -301,6 +373,11 @@ class Monitor:
                         f.write(data)
                 os.system("mv {0} {0}.old && sort -u {0}.old > {0}".format(destination+"/cvescan.kenz"))
                 os.system("rm {0}.old".format(destination+"/cvescan.kenz"))
+                if(os.path.exists(destination+"/ignorenum.kenz")):
+                    with open(destination+"/ignorenum.kenz", "r") as f:
+                        ignore = f.read().split("/n")
+                    for key in ignore:
+                        os.system("ex +g/{0}/d -cwq {1}".format(key, destination+"/cvescan.kenz"))
             except:
                 continue
         return
@@ -327,6 +404,11 @@ class Monitor:
                     f.write(data)
                 os.system("mv {0} {0}.old && sort -u {0}.old > {0}".format(destination+"/buckscan.kenz"))
                 os.system("rm {0}.old".format(destination+"/buckscan.kenz"))
+                if(os.path.exists(destination+"/ignorenum.kenz")):
+                    with open(destination+"/ignorenum.kenz", "r") as f:
+                        ignore = f.read().split("/n")
+                    for key in ignore:
+                        os.system("ex +g/{0}/d -cwq {1}".format(key, destination+"/buckscan.kenz"))
             except:
                 continue
         return
