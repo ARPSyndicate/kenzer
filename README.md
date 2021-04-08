@@ -16,7 +16,8 @@
     * `./install.sh -b` [if you need `kenzer-compatible` binaries to be installed]<br>
     * `./install.sh` [if you do not need `kenzer-compatible` binaries to be installed]<br>
     * `./run.sh` [if you do not need installation at all]<br>
-    * `./service.sh` [initialize it as a service post-installation]
+    * `./service.sh` [initialize it as a service post-installation]<br>
+    * `bash swap.sh` [in case you are facing memory issues]
 6. Interact with `kenzer` using Zulip client, by adding bot to a stream or via DM.<br>
 7. Test `@**kenzer** man` as Zulip input to display available commands.<br>
 8. All the commands can be used by mentioning the chatbot using the prefix `@**kenzer**`.<br>
