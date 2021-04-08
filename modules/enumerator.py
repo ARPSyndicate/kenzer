@@ -281,9 +281,9 @@ class Enumerator:
         path=self.path + "/shuffsolv.1.log"
         if(os.path.exists(path)):
             os.system("rm {0}".format(path))
+        os.system("shuffledns -strict-wildcard -retries 6 -wt 20 -r {3}/resolvers.txt -o {0} -v -list {1} -d {2}".format(path, domains, domain,self.resources))
         oldp = path
         path = self.path+"/shuffsolv.log"
-        os.system("shuffledns -strict-wildcard -retries 6 -wt 20 -r {3}/resolvers.txt -o {0} -v -list {1} -d {2}".format(path, domains, domain,self.resources))
         os.system("shuffledns -strict-wildcard -retries 6 -wt 20 -r {3}/resolvers.txt -o {0} -v -list {1} -d {2}".format(path, oldp, domain,self.resources))
         os.system("rm "+oldp)
         return
@@ -317,7 +317,7 @@ class Enumerator:
         output = path+"/amass.log"
         if(os.path.exists(output)):
             os.system("mv {0} {0}.old".format(output))
-        os.system("amass enum -active -o {0} -d {1}".format(output, domain))
+        os.system("amass enum -o {0} -d {1}".format(output, domain))
         return
 
     #enumerates subdomains using shuffledns
