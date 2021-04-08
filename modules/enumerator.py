@@ -317,7 +317,7 @@ class Enumerator:
         output = path+"/amass.log"
         if(os.path.exists(output)):
             os.system("mv {0} {0}.old".format(output))
-        os.system("amass enum -o {0} -d {1}".format(output, domain))
+        os.system("amass enum -o {0} -d {1} -norecursive -noalts -active -nolocaldb".format(output, domain))
         return
 
     #enumerates subdomains using shuffledns
