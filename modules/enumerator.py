@@ -28,12 +28,12 @@ class Enumerator:
             ignores.append(ignore)
             if(os.path.exists(output)):
                 with open(output, "r") as f:
-                    ignores.extend(f.read().split("/n"))
+                    ignores.extend(f.read().splitlines())
                     ignores = list(set(ignores))
                     ignores.sort()
                     f.close()
             with open(output, "w") as f:
-                f.writelines(ignores)
+                f.writelines("%s\n" % line for line in ignores)
                 f.close()
         if(os.path.exists(output)):
             with open(output, "r") as f:
