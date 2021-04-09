@@ -33,7 +33,7 @@ class Enumerator:
                     ignores.sort()
                     f.close()
             with open(output, "w") as f:
-                f.writelines("%s\n" % line for line in ignores)
+                f.writelines(ignores)
                 f.close()
         if(os.path.exists(output)):
             with open(output, "r") as f:
