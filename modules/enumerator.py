@@ -23,20 +23,22 @@ class Enumerator:
         path = self.path
         output =path+"/ignorenum.kenz"
         files = ["/subenum.kenz", "/webenum.kenz", "/portenum.kenz", "/urlenum.kenz", "/servenum.kenz"]
+        ignores = []
         if(len(ignore)>0):
+            ignores.append(ignore)
             if(os.path.exists(output)):
                 with open(output, "r") as f:
-                    ignore.extend(f.read().split("/n"))
-                    ignore = list(set(ignore))
-                    ignore.sort()
+                    ignores.extend(f.read().split("/n"))
+                    ignores = list(set(ignores))
+                    ignores.sort()
                     f.close()
             with open(output, "w") as f:
-                f.writelines("%s\n" % line for line in ignore)
+                f.writelines("%s\n" % line for line in ignores)
                 f.close()
         if(os.path.exists(output)):
             with open(output, "r") as f:
-                ignore = f.read().split("/n")
-            for key in ignore:
+                ignores = f.read().split("/n")
+            for key in ignores:
                 for file in files:
                     if(os.path.exists(path+file)):
                         os.system("ex +g/{0}/d -cwq {1}".format(key, path+file))
