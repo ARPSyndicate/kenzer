@@ -24,8 +24,13 @@ class Enumerator:
         output =path+"/ignorenum.kenz"
         files = ["/subenum.kenz", "/webenum.kenz", "/portenum.kenz", "/urlenum.kenz", "/servenum.kenz"]
         if(len(ignore)>0):
+            with open(output, "r") as f:
+                ignore.extend(f.read().split("/n"))
+                ignore = list(set(ignore))
+                ignore.sort()
+                f.close()
             with open(output, "a") as f:
-                f.writelines(ignore)
+                f.writelines("%s\n" % line for line in ignore)
         if(os.path.exists(output)):
             with open(output, "r") as f:
                 ignore = f.read().split("/n")
