@@ -50,7 +50,6 @@ class Enumerator:
 
     #enumerates subdomains
     def subenum(self):
-        self.gitdomain()
         self.subfinder()
         self.shuffledns()
         self.amass()
@@ -295,17 +294,6 @@ class Enumerator:
         path = self.path+"/shuffsolv.log"
         os.system("shuffledns -strict-wildcard -retries 6 -wt 20 -r {3}/resolvers.txt -o {0} -v -list {1} -d {2}".format(path, oldp, domain,self.resources))
         os.system("rm "+oldp)
-        return
-
-    #enumerates subdomains using github-subdomains
-    def gitdomain(self):
-        domain = self.domain
-        path = self.path
-        api=self.githubapi
-        output = path+"/gitdomain.log"
-        if(os.path.exists(output)):
-            os.system("mv {0} {0}.old".format(output))
-        os.system("github-subdomains -d {1} -t {2} > {0}".format(output, domain, api))
         return
 
     #enumerates subdomains using subfinder
