@@ -189,8 +189,8 @@ class Kenzer(object):
     #initializes & removes out of scope targets
     def ignorenum(self):
         for i in range(2,len(self.content)):
+            dtype = True
             if(validators.domain(self.content[i].lower())!= True and self.content[i].lower() != "monitor"):
-                dtype = True
                 self.sendMessage("[invalid] {0}".format(self.content[i].lower()))
                 continue
             extracted = tldextract.extract(self.content[i].lower())
@@ -207,8 +207,8 @@ class Kenzer(object):
     #enumerates subdomains
     def subenum(self):
         for i in range(2,len(self.content)):
+            dtype = True
             if(validators.domain(self.content[i].lower())!= True and self.content[i].lower() != "monitor"):
-                dtype = True
                 self.sendMessage("[invalid] {0}".format(self.content[i].lower()))
                 continue
             self.sendMessage("[subenum - #({0}/{1})] {2}".format(i-1, len(self.content)-2, self.content[i].lower()))
@@ -286,8 +286,8 @@ class Kenzer(object):
     #enumerates additional info from urls
     def urlheadenum(self):
         for i in range(2,len(self.content)):
+            dtype = True
             if(validators.domain(self.content[i].lower())!= True and self.content[i].lower() != "monitor"):
-                dtype = True
                 self.sendMessage("[invalid] {0}".format(self.content[i].lower()))
                 continue
             self.sendMessage("[urlheadenum - #({0}/{1})] {2}".format(i-1, len(self.content)-2, self.content[i].lower()))
@@ -302,8 +302,8 @@ class Kenzer(object):
     #enumerates dns records
     def dnsenum(self):
         for i in range(2,len(self.content)):
+            dtype = True
             if(validators.domain(self.content[i].lower())!= True and self.content[i].lower() != "monitor"):
-                dtype = True
                 self.sendMessage("[invalid] {0}".format(self.content[i].lower()))
                 continue
             self.sendMessage("[dnsenum - #({0}/{1})] {2}".format(i-1, len(self.content)-2, self.content[i].lower()))
@@ -339,8 +339,8 @@ class Kenzer(object):
     #enumerates asn for enumerated subdomains
     def asnenum(self):
         for i in range(2,len(self.content)):
+            dtype = True
             if(validators.domain(self.content[i].lower())!= True and self.content[i].lower() != "monitor"):
-                dtype = True
                 self.sendMessage("[invalid] {0}".format(self.content[i].lower()))
                 continue
             self.sendMessage("[asnenum - #({0}/{1})] {2}".format(i-1, len(self.content)-2, self.content[i].lower()))
@@ -376,8 +376,8 @@ class Kenzer(object):
     #enumerates urls
     def urlenum(self):
         for i in range(2,len(self.content)):
+            dtype = True
             if(validators.domain(self.content[i].lower())!= True and self.content[i].lower() != "monitor"):
-                dtype = True
                 self.sendMessage("[invalid] {0}".format(self.content[i].lower()))
                 continue
             self.sendMessage("[urlenum - #({0}/{1})] {2}".format(i-1, len(self.content)-2, self.content[i].lower()))
@@ -413,8 +413,8 @@ class Kenzer(object):
     #enumerates social media accounts 
     def socenum(self):
         for i in range(2,len(self.content)):
+            dtype = True
             if(validators.domain(self.content[i].lower())!= True and self.content[i].lower() != "monitor"):
-                dtype = True
                 self.sendMessage("[invalid] {0}".format(self.content[i].lower()))
                 continue
             self.sendMessage("[socenum - #({0}/{1})] {2}".format(i-1, len(self.content)-2, self.content[i].lower()))
@@ -492,8 +492,8 @@ class Kenzer(object):
     #hunts for CVEs in URLs
     def urlcvescan(self):
         for i in range(2,len(self.content)):
+            dtype = True
             if(validators.domain(self.content[i].lower())!= True and self.content[i].lower() != "monitor"):
-                dtype = True
                 self.sendMessage("[invalid] {0}".format(self.content[i].lower()))
                 continue
             self.sendMessage("[urlcvescan - #({0}/{1})] {2}".format(i-1, len(self.content)-2, self.content[i].lower()))
@@ -508,8 +508,8 @@ class Kenzer(object):
     #hunts for other common vulnerabilities in URLs
     def urlvulnscan(self):
         for i in range(2,len(self.content)):
+            dtype = True
             if(validators.domain(self.content[i].lower())!= True and self.content[i].lower() != "monitor"):
-                dtype = True
                 self.sendMessage("[invalid] {0}".format(self.content[i].lower()))
                 continue
             self.sendMessage("[urlvulnscan - #({0}/{1})] {2}".format(i-1, len(self.content)-2, self.content[i].lower()))
