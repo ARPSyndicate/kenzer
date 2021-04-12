@@ -5,10 +5,13 @@ import os
 class Enumerator:
     
     #initializations
-    def __init__(self, domain, db, kenzer, github=""):
+    def __init__(self, domain, db, kenzer, dtype, github=""):
         self.domain = domain
-        self.organization = domain
-        self.path = db+self.organization
+        self.organization = domain        
+        if dtype:
+            self.path = db+self.organization
+        else:
+            self.path = db+self.organization.replace("/","-")
         self.resources = kenzer+"resources"
         self.githubapi=github
         self.templates = self.resources+"/kenzer-templates/"

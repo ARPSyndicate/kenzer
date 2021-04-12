@@ -6,10 +6,13 @@ import time
 class Scanner:
     
     #initializations
-    def __init__(self, domain, db, kenzer):
+    def __init__(self, domain, db, dtype, kenzer):
         self.domain = domain
         self.organization = domain
-        self.path = db+self.organization
+        if dtype:
+            self.path = db+self.organization
+        else:
+            self.path = db+self.organization.replace("/","-")
         self.resources = kenzer+"resources/"
         self.templates = self.resources+"kenzer-templates/"
         if(os.path.exists(self.path) == False):
