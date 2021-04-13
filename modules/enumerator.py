@@ -181,14 +181,14 @@ class Enumerator:
         path = self.path
         subs = path+"/subenum.kenz"
         dtype = self.dtype
+        output = path+"/portenum.kenz"
+        if(os.path.exists(output)):
+                os.system("mv {0} {0}.old".format(output))
         if dtype:
             if(os.path.exists(subs) == False):
                 return("!subenum")
             self.shuffsolv(subs, domain)
-            output = path+"/portenum.kenz"
             subs = path+"/shuffsolv.log"
-            if(os.path.exists(output)):
-                os.system("mv {0} {0}.old".format(output))
             os.system("sudo NXScan --only-enumerate -l {0} -o {1}".format(subs,path+"/nxscan"))
         else:
             os.system("echo {0} > {1}".format(domain, subs))
