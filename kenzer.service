@@ -1,0 +1,10 @@
+[Unit]
+Description = Kenzer
+After = network.target
+
+[Service]
+User = root
+ExecStart = /bin/bash -c "cd /root/kenzer/ && ./run.sh"
+
+[Install]
+WantedBy = multi-user.target

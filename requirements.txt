@@ -1,0 +1,10 @@
+numpy
+setuptools
+zulip
+chatterbot_corpus==1.2.0
+chatterbot
+mmh3
+tldextract
+validators
+pytz
+ipaddress
