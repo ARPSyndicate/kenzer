@@ -270,7 +270,7 @@ class Enumerator:
         if(os.path.exists(output)):
             os.system("mv {0} {0}.old".format(output))
         os.system(
-            "dnsx -l {0} -o {1} -a -aaaa -cname -mx -ptr -soa -txt -resp -retry 2".format(subs, output))
+            "dnsx -l {0} -o {1} -a -aaaa -cname -mx -ptr -soa -txt -resp -retry 4".format(subs, output))
         if(os.path.exists(output)):
             with open(output, encoding="ISO-8859-1") as f:
                 line = len(f.readlines())
@@ -345,13 +345,13 @@ class Enumerator:
             path, domains, domain, self.resources))
         oldp = path
         path = self.path+"/puredns.log"
-        os.system("puredns resolve {1} -r {2}/resolvers.txt -l 100 -t 25 -n 5 --rate-limit-trusted 50 -w {0}".format(
+        os.system("puredns resolve {1} -r {2}/resolvers.txt -l 100 -t 25 -n 5 --rate-limit-trusted 50 -w {0} --wildcard-tests 50 ".format(
             path, oldp, self.resources))
         os.system("rm "+oldp)
         oldp = path
         path = self.path+"/shuffsolv.log"
         os.system(
-            "cat {1} | dnsx -wd {2} | sort -u > {0}".format(path, oldp, domain))
+            "cat {1} | dnsx -wd {2} -t 40 -retry 4 -silent -rl 50| sort -u > {0}".format(path, oldp, domain))
         os.system("rm "+oldp)
         return
 
